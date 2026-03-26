@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make vs Do · Going to vs Will</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f9f7ff;--surface:#f3f0ff;--card:#ffffff;
+  --border:#e2daff;--border2:#c9bbff;
+  --ink:#1a1333;--ink2:#5a4d80;--muted:#a898cc;
+  /* MAKE */
+  --make:#7c3aed;--make-l:rgba(124,58,237,.12);--make-b:rgba(124,58,237,.25);
+  /* DO */
+  --do:#2563eb;--do-l:rgba(37,99,235,.12);--do-b:rgba(37,99,235,.25);
+  /* WILL */
+  --will:#0d9488;--will-l:rgba(13,148,136,.12);--will-b:rgba(13,148,136,.25);
+  /* GOING TO */
+  --going:#ea580c;--going-l:rgba(234,88,12,.12);--going-b:rgba(234,88,12,.25);
+  /* states */
+  --green:#16a34a;--gbg:rgba(22,163,74,.09);
+  --red:#dc2626;--rbg:rgba(220,38,38,.08);
+  --gold:#b45309;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Lexend',sans-serif;min-height:100vh}
+
+/* ── HEADER ── */
+.hdr{
+background:linear-gradient(135deg,#5b21b6 0%,#1d4ed8 50%,#0f766e 100%);
+padding:18px 22px;display:flex;align-items:center;gap:14px;
+}
+.hdr-icon{font-size:2rem;flex-shrink:0}
+.hdr-text h1{font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+.hdr-text p{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:2px}
+.hdr-pts{margin-left:auto;text-align:right}
+.hdr-pts-num{font-family:‘DM Mono’,monospace;font-size:2rem;font-weight:500;color:#fde68a;line-height:1}
+.hdr-pts-lbl{font-size:.6rem;color:rgba(255,255,255,.4)}
+
+/* ── MAIN TABS ── */
+.main-tabs{
+display:flex;background:#fff;
+border-bottom:2px solid var(–border);
+}
+.mtab{
+flex:1;padding:13px 8px;text-align:center;cursor:pointer;
+font-size:.78rem;font-weight:700;letter-spacing:.03em;
+color:var(–muted);border-bottom:3px solid transparent;margin-bottom:-2px;
+transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;
+font-family:‘Lexend’,sans-serif;
+}
+.mtab:hover{color:var(–ink2)}
+.mtab.mk-active{color:var(–make);border-bottom-color:var(–make)}
+.mtab.wl-active{color:var(–will);border-bottom-color:var(–will)}
+
+/* ── SUBTABS ── */
+.sub-tabs{
+background:var(–surface);border-bottom:1px solid var(–border);
+display:flex;overflow-x:auto;scrollbar-width:none;padding:0 14px;
+}
+.sub-tabs::-webkit-scrollbar{display:none}
+.stab{
+padding:9px 16px;cursor:pointer;white-space:nowrap;
+font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+color:var(–muted);border-bottom:2.5px solid transparent;margin-bottom:-1px;
+transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;
+font-family:‘Lexend’,sans-serif;
+}
+.stab:hover{color:var(–ink2)}
+.stab.make-sub{color:var(–make);border-bottom-color:var(–make)}
+.stab.do-sub  {color:var(–do);border-bottom-color:var(–do)}
+.stab.mix-sub {color:#6d28d9;border-bottom-color:#6d28d9}
+.stab.will-sub {color:var(–will);border-bottom-color:var(–will)}
+.stab.going-sub{color:var(–going);border-bottom-color:var(–going)}
+.stab.wl-mix-sub{color:#0369a1;border-bottom-color:#0369a1}
+
+/* PROGRESS */
+.prog{height:3px;background:var(–border)}
+.pf{height:100%;transition:width .4s ease;border-radius:0 2px 2px 0}
+
+/* SECTIONS */
+.section{display:none}.section.active{display:block}
+
+/* ── MAIN WRAP ── */
+.wrap{max-width:700px;margin:0 auto;padding:20px 13px 80px}
+
+/* ── CONCEPT CARD ── */
+.concept{
+border-radius:16px;padding:18px 20px;margin-bottom:18px;
+border:1px solid var(–border);background:var(–card);
+}
+.concept-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(–muted);margin-bottom:12px}
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.concept-grid{grid-template-columns:1fr}}
+.cg-box{border-radius:10px;padding:12px 14px;border:1.5px solid}
+.cg-word{font-family:‘DM Mono’,monospace;font-size:1.1rem;font-weight:500;margin-bottom:6px}
+.cg-rule{font-size:.75rem;line-height:1.55;color:var(–ink2)}
+.cg-rule li{margin-left:14px;margin-bottom:3px}
+.cg-ex{margin-top:7px;font-size:.73rem;font-family:‘DM Mono’,monospace;opacity:.7}
+
+/* ── STATS ── */
+.stats{display:flex;gap:8px;margin-bottom:16px}
+.stat{flex:1;background:var(–card);border:1.5px solid var(–border);border-radius:11px;padding:9px 10px;text-align:center}
+.sv{font-family:‘DM Mono’,monospace;font-size:1.3rem;font-weight:500;line-height:1}
+.sl{font-size:.6rem;color:var(–muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+/* ── QUESTION CARD ── */
+.qc{
+background:var(–card);border:2px solid var(–border);
+border-radius:15px;overflow:hidden;margin-bottom:12px;
+transition:border-color .25s,box-shadow .25s;
+}
+.qc.ok  {border-color:var(–green);box-shadow:0 2px 10px rgba(22,163,74,.1)}
+.qc.fail{border-color:var(–red);box-shadow:0 2px 10px rgba(220,38,38,.09)}
+
+.qc-top{padding:14px 17px 11px;border-bottom:1px solid var(–border)}
+.qmeta{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.qnum{
+width:27px;height:27px;border-radius:7px;flex-shrink:0;
+background:var(–surface);border:1.5px solid var(–border2);
+display:flex;align-items:center;justify-content:center;
+font-family:‘DM Mono’,monospace;font-size:.7rem;color:var(–ink2);font-weight:500;
+}
+.qc.ok   .qnum{background:var(–green);color:#fff;border-color:var(–green)}
+.qc.fail .qnum{background:var(–red);color:#fff;border-color:var(–red)}
+.qtag{font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.t-make {background:var(–make-l);color:var(–make)}
+.t-do   {background:var(–do-l);color:var(–do)}
+.t-will {background:var(–will-l);color:var(–will)}
+.t-going{background:var(–going-l);color:var(–going)}
+.t-neg  {background:rgba(220,38,38,.1);color:var(–red)}
+.t-err  {background:rgba(180,83,9,.1);color:var(–gold)}
+.t-mix  {background:rgba(109,40,217,.1);color:#6d28d9}
+.t-q    {background:rgba(22,163,74,.1);color:var(–green)}
+.qlbl{font-size:.62rem;color:var(–muted);margin-left:auto;font-family:‘DM Mono’,monospace}
+
+.qinstr{font-size:.75rem;color:var(–ink2);margin-bottom:7px;line-height:1.5}
+.qsent{
+background:var(–surface);border:1.5px solid var(–border);
+border-radius:9px;padding:11px 14px;
+font-size:.93rem;line-height:1.7;color:var(–ink);font-weight:600;
+}
+.qsent .gap{
+display:inline-block;min-width:68px;border-bottom:2.5px solid var(–muted);
+text-align:center;color:var(–muted);font-style:italic;font-weight:400;margin:0 3px;font-size:.86rem;
+}
+.qsent .ew{
+background:rgba(220,38,38,.1);border-bottom:2px solid var(–red);
+padding:1px 4px;border-radius:4px;color:var(–red);font-weight:700;
+}
+.sig{
+display:inline-flex;align-items:center;gap:5px;margin-top:6px;
+font-size:.66rem;color:var(–muted);background:rgba(255,255,255,.7);
+border:1px solid var(–border);border-radius:5px;padding:2px 8px;font-family:‘DM Mono’,monospace;
+}
+
+/* ── OPTIONS ── */
+.opts{display:flex;flex-direction:column;gap:7px;padding:12px 15px}
+.opt{
+display:flex;align-items:center;gap:8px;
+background:var(–surface);border:2px solid var(–border);
+border-radius:9px;padding:9px 13px;cursor:pointer;
+font-size:.86rem;font-weight:500;color:var(–ink);
+transition:all .15s;user-select:none;
+}
+.opt:hover:not(.dis){border-color:var(–make);background:var(–make-l)}
+.opt.sel{border-color:var(–make);background:var(–make-l)}
+.opt.ok {border-color:var(–green);background:var(–gbg);color:var(–green);font-weight:700}
+.opt.bad{border-color:var(–red);background:var(–rbg);color:var(–red)}
+.opt.dis{cursor:default}
+.ol{
+width:24px;height:24px;flex-shrink:0;border-radius:6px;
+border:2px solid var(–border);background:var(–card);
+display:flex;align-items:center;justify-content:center;
+font-family:‘DM Mono’,monospace;font-size:.68rem;font-weight:700;
+}
+.opt.ok  .ol{background:var(–green);color:#fff;border-color:var(–green)}
+.opt.bad .ol{background:var(–red);color:#fff;border-color:var(–red)}
+.opt.sel .ol{background:var(–make);color:#fff;border-color:var(–make)}
+
+/* ── WRITE ── */
+.write-area{padding:12px 15px}
+.wr{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.wi{
+background:var(–surface);border:2px solid var(–border);
+border-radius:9px;padding:8px 13px;
+color:var(–ink);font-family:‘DM Mono’,monospace;font-size:.88rem;font-weight:500;
+flex:1;min-width:150px;outline:none;transition:border-color .2s;
+}
+.wi:focus{border-color:var(–make)}
+.wi.ok  {border-color:var(–green);background:var(–gbg);color:var(–green)}
+.wi.fail{border-color:var(–red);background:var(–rbg)}
+.wi:disabled{opacity:.85}
+.chk{
+background:var(–make);color:#fff;border:none;border-radius:9px;
+padding:8px 18px;font-family:‘Lexend’,sans-serif;font-size:.82rem;font-weight:700;
+cursor:pointer;transition:opacity .2s;white-space:nowrap;
+}
+.chk:hover{opacity:.85}
+.chk:disabled{background:var(–border);color:var(–muted);cursor:default}
+
+/* ── FEEDBACK ── */
+.fb{margin:0 15px 13px;padding:11px 13px;border-radius:9px;font-size:.79rem;line-height:1.65;display:none}
+.fb.show{display:block}
+.fb.ok  {background:var(–gbg);border:1px solid rgba(22,163,74,.22);color:#14532d}
+.fb.fail{background:var(–rbg);border:1px solid rgba(220,38,38,.18);color:#7f1d1d}
+.fb .cor{margin-top:7px;padding:7px 11px;background:rgba(22,163,74,.1);border-radius:7px;font-family:‘DM Mono’,monospace;font-size:.8rem;color:#14532d;font-weight:500}
+.fb .rn {margin-top:6px;padding:7px 11px;background:rgba(255,255,255,.7);border:1px solid var(–border);border-radius:7px;font-size:.76rem;color:var(–ink2)}
+.fb .rn strong{color:var(–ink)}
+
+/* ── COMPLETE ── */
+.done{background:var(–card);border:2px solid var(–border);border-radius:18px;padding:34px 22px;text-align:center;display:none}
+.done.show{display:block}
+.done-emoji{font-size:3.2rem;margin-bottom:10px}
+.done-score{font-family:‘DM Mono’,monospace;font-size:3.3rem;font-weight:500;line-height:1}
+.done-lbl{font-size:.78rem;color:var(–muted);margin-bottom:12px}
+.done-grade{font-size:.95rem;font-weight:700;margin-bottom:14px}
+.done-chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.dc{padding:6px 13px;border-radius:20px;font-size:.73rem;font-weight:700}
+.dc-ok {background:var(–gbg);color:var(–green)}
+.dc-fail{background:var(–rbg);color:var(–red)}
+.dc-pts{background:rgba(180,83,9,.1);color:var(–gold)}
+.done-btns{display:flex;gap:7px;justify-content:center;flex-wrap:wrap}
+.db{padding:9px 20px;border-radius:9px;border:none;font-family:‘Lexend’,sans-serif;font-size:.83rem;font-weight:700;cursor:pointer;transition:all .2s}
+.db-p{background:var(–make);color:#fff}.db-p:hover{opacity:.85}
+.db-s{background:var(–surface);border:1.5px solid var(–border);color:var(–ink2)}.db-s:hover{border-color:var(–make);color:var(–make)}
+
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.qc{animation:slideUp .27s ease both}
+.qc:nth-child(2){animation-delay:.04s}.qc:nth-child(3){animation-delay:.08s}
+.qc:nth-child(4){animation-delay:.12s}.qc:nth-child(5){animation-delay:.16s}
+.qc:nth-child(6){animation-delay:.20s}.qc:nth-child(7){animation-delay:.24s}
+.qc:nth-child(8){animation-delay:.28s}.qc:nth-child(9){animation-delay:.32s}
+.qc:nth-child(10){animation-delay:.36s}
+</style>
+
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-icon">⚡</div>
+  <div class="hdr-text">
+    <h1>Make vs Do &nbsp;·&nbsp; Going to vs Will</h1>
+    <p>Selección múltiple · Writing · Corrección de errores</p>
+  </div>
+  <div class="hdr-pts">
+    <div class="hdr-pts-num" id="g-pts">0</div>
+    <div class="hdr-pts-lbl">puntos</div>
+  </div>
+</div>
+
+<!-- MAIN TABS -->
+
+<div class="main-tabs">
+  <button class="mtab mk-active" id="mt-0" onclick="switchMain(0)">🟣 Make vs Do</button>
+  <button class="mtab" id="mt-1" onclick="switchMain(1)">🟢 Going to vs Will</button>
+</div>
+
+<!-- MAKE VS DO -->
+
+<div class="section active" id="sec-make">
+  <div class="sub-tabs" id="stabs-make"></div>
+  <div class="prog"><div class="pf" id="pf-make" style="width:0%;background:var(--make)"></div></div>
+  <div class="wrap" id="wrap-make"></div>
+</div>
+
+<!-- GOING TO VS WILL -->
+
+<div class="section" id="sec-will">
+  <div class="sub-tabs" id="stabs-will"></div>
+  <div class="prog"><div class="pf" id="pf-will" style="width:0%;background:var(--will)"></div></div>
+  <div class="wrap" id="wrap-will"></div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+//  MAKE VS DO DATA
+// ════════════════════════════════════════════════════
+const MAKE_DO = [
+{
+  id:'make', label:'MAKE', stab:'make-sub',
+  color:'var(--make)', ptag:'t-make',
+  concept:{
+    word:'MAKE', color:'var(--make)', borderColor:'rgba(124,58,237,.3)',
+    bg:'rgba(124,58,237,.05)',
+    rules:['Creating or producing something','Something that results from effort','Food and drinks','Plans, decisions, promises'],
+    examples:['make a cake · make a mistake','make money · make progress','make a decision · make a promise']
+  },
+  qs:[
+    {type:'mc',tag:'t-make',label:'MAKE',qtype:'Collocación',
+     instr:'Choose the correct verb:',
+     sent:'She needs to _____ a decision before Friday.',sig:'decision',
+     opts:['make a decision','do a decision','have a decision','take a decision'],ans:0,
+     cor:'She needs to <strong>make</strong> a decision.',
+     exp:'"Decision" collocates with MAKE. Key MAKE collocations: make a decision, make a mistake, make progress, make money, make a plan.',
+     rule:'<strong>MAKE</strong> a decision / mistake / plan / progress / money / appointment'},
+    {type:'mc',tag:'t-make',label:'MAKE',qtype:'Collocación',
+     instr:'Choose the correct verb:',
+     sent:'He always _____ mistakes when he\'s nervous.',sig:'mistakes',
+     opts:['makes mistakes','does mistakes','has mistakes','takes mistakes'],ans:0,
+     cor:'"He always <strong>makes</strong> mistakes."',
+     exp:'MAKE + mistakes. You "make" a mistake, never "do" a mistake. This is one of the most common collocations.',
+     rule:'<strong>MAKE</strong> a mistake (very common collocation)'},
+    {type:'write',tag:'t-make',label:'MAKE',qtype:'Escribir',
+     instr:'Fill in with MAKE or MAKES:',
+     sent:'She always _____ her bed before going to school.',sig:'her bed / routine',
+     hint:'make your bed = MAKE collocation',
+     answers:['makes'],
+     cor:'She always <strong>makes</strong> her bed.',
+     exp:'"Make your bed" = prepare your bed in the morning. MAKE + bed. She → makes.',
+     rule:'<strong>MAKE</strong> your bed · a meal · coffee · dinner'},
+    {type:'mc',tag:'t-make',label:'MAKE',qtype:'Collocación',
+     instr:'Choose the correct phrase:',
+     sent:'The company _____ a huge profit last year.',sig:'profit / result',
+     opts:['made a profit','did a profit','had a profit','got a profit'],ans:0,
+     cor:'The company <strong>made</strong> a huge profit.',
+     exp:'MAKE + profit/loss/money. Financial results → always MAKE.',
+     rule:'<strong>MAKE</strong> a profit / a loss / money'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find the INCORRECT sentence:',
+     sent:'Which sentence has an error?',sig:'error detection',
+     opts:["She made a great speech.","He did a big mistake.","They made a lot of progress.","We made an appointment."],ans:1,
+     cor:'"He <strong>made</strong> a big mistake."',
+     exp:'"Do a mistake" is wrong. MISTAKE always goes with MAKE, never DO.',
+     rule:'<strong>MAKE</strong> a mistake — NEVER "do a mistake"'},
+    {type:'write',tag:'t-make',label:'MAKE',qtype:'Escribir',
+     instr:'Complete with the correct form of MAKE:',
+     sent:'I need to _____ an appointment with the doctor.',sig:'appointment',
+     hint:'MAKE + appointment',
+     answers:['make'],
+     cor:'I need to <strong>make</strong> an appointment.',
+     exp:'MAKE an appointment = schedule a meeting/visit. Fixed collocation.',
+     rule:'<strong>MAKE</strong> an appointment / a reservation / a call'},
+    {type:'mc',tag:'t-make',label:'MAKE',qtype:'Collocación',
+     instr:'Choose the correct collocation:',
+     sent:'Can you _____ some coffee? I\'m exhausted.',sig:'food/drink',
+     opts:['make some coffee','do some coffee','prepare some coffee','create some coffee'],ans:0,
+     cor:'"Can you <strong>make</strong> some coffee?"',
+     exp:'Food and drinks → always MAKE: make coffee, make tea, make dinner, make a sandwich.',
+     rule:'<strong>MAKE</strong> + food & drinks'},
+    {type:'mc',tag:'t-make',label:'MAKE',qtype:'Collocación',
+     instr:'Choose the correct phrase:',
+     sent:'Please _____ sure you lock the door before leaving.',sig:'sure',
+     opts:['make sure','do sure','be sure','have sure'],ans:0,
+     cor:'Please <strong>make sure</strong> you lock the door.',
+     exp:'"Make sure" = verify / confirm something. Fixed expression: make sure, make sense, make friends.',
+     rule:'<strong>MAKE</strong> sure / sense / friends / an effort'},
+    {type:'write',tag:'t-make',label:'MAKE',qtype:'Escribir',
+     instr:'Fill in with MAKE, MAKES, or MADE:',
+     sent:'Last year he _____ a promise to study harder.',sig:'last year / past',
+     hint:'MAKE + promise / past tense',
+     answers:['made'],
+     cor:'He <strong>made</strong> a promise last year.',
+     exp:'"Make a promise" = commit to something. Past tense of make = MADE.',
+     rule:'<strong>MAKE</strong> a promise / an offer / a suggestion'},
+    {type:'mc',tag:'t-make',label:'MAKE',qtype:'Collocación',
+     instr:'Choose the correct collocation:',
+     sent:'Hard work helps you _____ progress in any skill.',sig:'progress',
+     opts:['make progress','do progress','have progress','achieve a progress'],ans:0,
+     cor:'Hard work helps you <strong>make progress</strong>.',
+     exp:'MAKE progress = advance / improve. Note: "progress" is uncountable — no "a progress".',
+     rule:'<strong>MAKE</strong> progress (uncountable — no article)'},
+  ]
+},
+{
+  id:'do', label:'DO', stab:'do-sub',
+  color:'var(--do)', ptag:'t-do',
+  concept:{
+    word:'DO', color:'var(--do)', borderColor:'rgba(37,99,235,.3)',
+    bg:'rgba(37,99,235,.05)',
+    rules:['Tasks, activities, work','Chores and duties','Sports/exercises (general)','Courses, jobs, favors'],
+    examples:['do homework · do the dishes','do exercise · do yoga','do a course · do someone a favor']
+  },
+  qs:[
+    {type:'mc',tag:'t-do',label:'DO',qtype:'Collocación',
+     instr:'Choose the correct verb:',
+     sent:'She spends two hours every night _____ her homework.',sig:'homework',
+     opts:['doing her homework','making her homework','having her homework','taking her homework'],ans:0,
+     cor:'She spends two hours <strong>doing</strong> her homework.',
+     exp:'DO + homework. Academic tasks → DO: do homework, do research, do an assignment, do a test.',
+     rule:'<strong>DO</strong> homework / research / an assignment / a test'},
+    {type:'mc',tag:'t-do',label:'DO',qtype:'Collocación',
+     instr:'Choose the correct phrase:',
+     sent:'Can you _____ me a favor and pass the salt?',sig:'favor',
+     opts:['do me a favor','make me a favor','give me a favor','have a favor'],ans:0,
+     cor:'Can you <strong>do me a favor</strong>?',
+     exp:'DO someone a favor = help someone with something. Fixed expression: "do a favor."',
+     rule:'<strong>DO</strong> someone a favor (fixed expression)'},
+    {type:'write',tag:'t-do',label:'DO',qtype:'Escribir',
+     instr:'Complete with DO, DOES, or DID:',
+     sent:'My mother always _____ the laundry on Sundays.',sig:'laundry / chore',
+     hint:'DO + the laundry (household chore)',
+     answers:['does'],
+     cor:'My mother always <strong>does</strong> the laundry.',
+     exp:'Household chores → DO: do the laundry, do the dishes, do the cleaning, do the ironing.',
+     rule:'<strong>DO</strong> the laundry / dishes / cleaning / ironing'},
+    {type:'mc',tag:'t-do',label:'DO',qtype:'Collocación',
+     instr:'Choose the correct phrase:',
+     sent:'He _____ every morning before going to work.',sig:'exercise / routine',
+     opts:['does exercise','makes exercise','has exercise','takes exercise'],ans:0,
+     cor:'He <strong>does exercise</strong> every morning.',
+     exp:'General physical activity → DO: do exercise, do yoga, do sport (BrE). For specific sports: "play football", "go running".',
+     rule:'<strong>DO</strong> exercise / yoga / sport (general activity)'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find the INCORRECT sentence:',
+     sent:'Which sentence has an error?',sig:'error detection',
+     opts:["She does the dishes every evening.","He does his best at work.","They do a course in web design.","We did a mistake in the report."],ans:3,
+     cor:'"We <strong>made</strong> a mistake in the report."',
+     exp:'"Do a mistake" = WRONG. Always MAKE a mistake. This is one of the most common errors!',
+     rule:'<strong>MAKE</strong> a mistake — never "do a mistake"'},
+    {type:'write',tag:'t-do',label:'DO',qtype:'Escribir',
+     instr:'Fill in with the correct form of DO:',
+     sent:'She _____ a course in digital marketing last semester.',sig:'course / past',
+     hint:'DO + a course / past: did',
+     answers:['did'],
+     cor:'She <strong>did</strong> a course in digital marketing.',
+     exp:'DO a course = take/complete a course. Past tense of do = DID.',
+     rule:'<strong>DO</strong> a course / a degree / training'},
+    {type:'mc',tag:'t-do',label:'DO',qtype:'Collocación',
+     instr:'Choose the correct collocation:',
+     sent:'He always _____ his best in difficult situations.',sig:'his best',
+     opts:['does his best','makes his best','gives his best','has his best'],ans:0,
+     cor:'He always <strong>does his best</strong>.',
+     exp:'"Do your best" = try as hard as possible. Fixed expression: do your best, do well, do badly.',
+     rule:'<strong>DO</strong> your best / well / badly (performance)'},
+    {type:'mc',tag:'t-do',label:'DO',qtype:'Collocación',
+     instr:'Choose the correct phrase:',
+     sent:'The new law will _____ a lot of damage to small businesses.',sig:'damage',
+     opts:['do a lot of damage','make a lot of damage','have a lot of damage','create damage'],ans:0,
+     cor:'The law will <strong>do a lot of damage</strong>.',
+     exp:'DO damage / harm = cause damage or harm. "Do" is used with harm and damage.',
+     rule:'<strong>DO</strong> damage / harm (cause negative effects)'},
+    {type:'write',tag:'t-do',label:'DO',qtype:'Escribir',
+     instr:'Complete with DO, DOES, or DID:',
+     sent:'What _____ you _____ for a living?',sig:'job / occupation',
+     hint:'What do you do = question about job',
+     answers:['do / do'],
+     cor:'"What <strong>do</strong> you <strong>do</strong> for a living?"',
+     exp:'"What do you do?" = the standard question to ask about someone\'s job. Double "do": auxiliary + main verb.',
+     rule:'"What <strong>do</strong> you <strong>do</strong>?" — classic job question'},
+    {type:'mc',tag:'t-do',label:'DO',qtype:'Collocación',
+     instr:'Choose the correct phrase:',
+     sent:'We need someone to _____ the shopping today.',sig:'shopping / task',
+     opts:['do the shopping','make the shopping','have the shopping','take the shopping'],ans:0,
+     cor:'We need someone to <strong>do the shopping</strong>.',
+     exp:'DO the shopping = go to buy groceries. Also: do the cooking, do the cleaning, do the gardening.',
+     rule:'<strong>DO</strong> the shopping / cooking / gardening'},
+  ]
+},
+{
+  id:'mix-md', label:'MIX 🔀', stab:'mix-sub',
+  color:'#6d28d9', ptag:'t-mix',
+  concept:null,
+  qs:[
+    {type:'mc',tag:'t-mix',label:'MAKE / DO',qtype:'Mix',
+     instr:'Choose MAKE or DO:',
+     sent:'Can you _____ me a favor? I need help with this.',sig:'favor',
+     opts:['do','make','have','give'],ans:0,
+     cor:'"Can you <strong>do</strong> me a favor?"',
+     exp:'DO a favor. But: MAKE an effort, MAKE a promise, MAKE a suggestion.',
+     rule:'<strong>DO</strong> a favor / <strong>MAKE</strong> a promise → learn them as chunks'},
+    {type:'mc',tag:'t-mix',label:'MAKE / DO',qtype:'Mix',
+     instr:'Choose MAKE or DO:',
+     sent:'She _____ a big effort to finish on time.',sig:'effort',
+     opts:['made','did','had','gave'],ans:0,
+     cor:'She <strong>made</strong> a big effort.',
+     exp:'MAKE an effort = try hard. Even though "effort" is work, it collocates with MAKE.',
+     rule:'<strong>MAKE</strong> an effort / <strong>DO</strong> your best → both mean "try hard"'},
+    {type:'write',tag:'t-mix',label:'MAKE / DO',qtype:'Escribir',
+     instr:'Fill in with MAKE or DO:',
+     sent:'Every morning he _____ exercise and then _____ breakfast.',sig:'routine',
+     hint:'exercise → DO / breakfast → MAKE',
+     answers:['does / makes'],
+     cor:'He <strong>does</strong> exercise and then <strong>makes</strong> breakfast.',
+     exp:'DO exercise (activity) + MAKE breakfast (food production). Common mistake: "make exercise."',
+     rule:'<strong>DO</strong> exercise · <strong>MAKE</strong> breakfast'},
+    {type:'mc',tag:'t-mix',label:'MAKE / DO',qtype:'Mix',
+     instr:'Choose the correct option:',
+     sent:'The new manager _____ some important changes to the team.',sig:'changes',
+     opts:['made','did','had','took'],ans:0,
+     cor:'The manager <strong>made</strong> some important changes.',
+     exp:'MAKE changes / a difference / an improvement. Changes that result from decisions → MAKE.',
+     rule:'<strong>MAKE</strong> changes / a difference / an improvement'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find the sentence with an error:',
+     sent:'Which one is INCORRECT?',sig:'error detection',
+     opts:["She made a reservation for dinner.","He did his homework on time.","They made the dishes after lunch.","We did a course in photography."],ans:2,
+     cor:'"They <strong>did</strong> the dishes after lunch."',
+     exp:'"Make the dishes" = WRONG. DO the dishes = wash the dishes. MAKE the dishes would mean creating/crafting plates.',
+     rule:'<strong>DO</strong> the dishes (wash) · <strong>MAKE</strong> dinner (cook)'},
+    {type:'write',tag:'t-mix',label:'MAKE / DO',qtype:'Escribir',
+     instr:'Fill in: MAKE or DO?',
+     sent:'We need to _____ a plan before we _____ anything else.',sig:'plan / action',
+     hint:'plan → MAKE / anything else → DO',
+     answers:['make / do'],
+     cor:'We need to <strong>make</strong> a plan before we <strong>do</strong> anything else.',
+     exp:'MAKE a plan = create a plan. DO anything = perform/execute actions.',
+     rule:'<strong>MAKE</strong> a plan · <strong>DO</strong> something (action/activity)'},
+    {type:'mc',tag:'t-mix',label:'MAKE / DO',qtype:'Mix',
+     instr:'Choose the correct verb:',
+     sent:'He _____ a lot of research before writing the report.',sig:'research',
+     opts:['did','made','had','took'],ans:0,
+     cor:'He <strong>did</strong> a lot of research.',
+     exp:'DO research = investigate/study. Research is a task/activity → DO.',
+     rule:'<strong>DO</strong> research / an experiment / a survey'},
+    {type:'mc',tag:'t-mix',label:'MAKE / DO',qtype:'Mix',
+     instr:'Choose the correct phrase:',
+     sent:'This new app _____ it easy to learn English.',sig:'easy',
+     opts:['makes','does','has','gives'],ans:0,
+     cor:'This app <strong>makes</strong> it easy.',
+     exp:'"Make + adjective" = cause something to be in a state: make it easy, make it possible, make it clear.',
+     rule:'<strong>MAKE</strong> + it + adjective (make it easy/clear/possible)'},
+    {type:'write',tag:'t-mix',label:'MAKE / DO',qtype:'Escribir',
+     instr:'Choose MAKE or DO:',
+     sent:'She _____ her best but still couldn\'t _____ it work.',sig:'best / work',
+     hint:'best → DO / make it work → MAKE',
+     answers:['did her best / make','did / make'],
+     cor:'She <strong>did her best</strong> but couldn\'t <strong>make</strong> it work.',
+     exp:'DO your best = try hard. MAKE it work = cause something to function.',
+     rule:'<strong>DO</strong> your best · <strong>MAKE</strong> it work/happen'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find ALL errors — choose the INCORRECT sentence:',
+     sent:'Which sentence is wrong?',sig:'error detection',
+     opts:["She made a complaint to the manager.","He did his homework last night.","They make the dishes every morning.","We made plans for the weekend."],ans:2,
+     cor:'"They <strong>do</strong> the dishes every morning."',
+     exp:'"Make the dishes" = WRONG. DO the dishes = wash them. Never confuse making food (MAKE) with washing dishes (DO).',
+     rule:'<strong>DO</strong> the dishes (wash) ≠ <strong>MAKE</strong> a meal (cook)'},
+  ]
+}
+];
+
+// ════════════════════════════════════════════════════
+//  GOING TO vs WILL DATA
+// ════════════════════════════════════════════════════
+const WILL_DATA = [
+{
+  id:'will', label:'WILL', stab:'will-sub',
+  color:'var(--will)', ptag:'t-will',
+  concept:{
+    word:'WILL', color:'var(--will)', borderColor:'rgba(13,148,136,.3)',
+    bg:'rgba(13,148,136,.05)',
+    rules:['Spontaneous decisions (at the moment)','Predictions / opinions (I think, probably)','Promises and offers','Facts about the future'],
+    examples:["I'll help you! (spontaneous)","I think it will rain. (prediction)","I promise I'll call you. (promise)"]
+  },
+  qs:[
+    {type:'mc',tag:'t-will',label:'WILL',qtype:'Espontáneo',
+     instr:'Choose the correct future form:',
+     sent:'A: We\'re out of milk! B: Don\'t worry, I _____ buy some.',sig:'spontaneous decision',
+     opts:["I'll buy","I'm going to buy","I buy","I bought"],ans:0,
+     cor:'"Don\'t worry, <strong>I\'ll buy</strong> some."',
+     exp:'Decision made AT THE MOMENT of speaking → WILL. The person didn\'t plan this before.',
+     rule:'<strong>WILL</strong> = spontaneous decision (made right now)'},
+    {type:'mc',tag:'t-will',label:'WILL',qtype:'Predicción',
+     instr:'Choose the correct form:',
+     sent:'I think technology _____ completely change our lives in 20 years.',sig:'I think / opinion',
+     opts:['will','is going to','goes to','would'],ans:0,
+     cor:'I think technology <strong>will</strong> change our lives.',
+     exp:'"I think" signals a personal opinion or prediction without specific evidence → WILL.',
+     rule:'<strong>WILL</strong> after: I think / I believe / probably / maybe'},
+    {type:'write',tag:'t-will',label:'WILL',qtype:'Escribir',
+     instr:'Complete with WILL or WON\'T:',
+     sent:'Don\'t worry about the exam. I\'m sure you _____ pass!',sig:"I'm sure",
+     hint:"will / won't + base verb",
+     answers:['will','\'ll'],
+     cor:'I\'m sure you <strong>will</strong> pass!',
+     exp:'"I\'m sure" = confident prediction → WILL. Positive prediction without present evidence.',
+     rule:"<strong>WILL</strong> after: I'm sure / I'm certain / I believe"},
+    {type:'mc',tag:'t-will',label:'WILL',qtype:'Promesa',
+     instr:'Choose the best future form for a promise:',
+     sent:'"I promise I _____ forget your birthday." (negative)',sig:'promise',
+     opts:["won't forget","am not going to forget","don't forget","didn't forget"],ans:0,
+     cor:'"I promise I <strong>won\'t</strong> forget your birthday."',
+     exp:'Promises → WILL. "Won\'t" = will not = future negative.',
+     rule:'<strong>WILL/WON\'T</strong> for promises and commitments'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find the INCORRECT use of WILL:',
+     sent:'Which sentence misuses WILL?',sig:'error detection',
+     opts:["I'll call you tonight.","Look at those clouds! It will rain. (no evidence mentioned)","I decided last week — I will travel to Japan. (prior decision)","Maybe she'll come to the party."],ans:2,
+     cor:'"I\'m going to travel to Japan." (prior decision)',
+     exp:'If the decision was made BEFORE the moment of speaking → use GOING TO, not WILL.',
+     rule:'Prior plan → <strong>GOING TO</strong> / Spontaneous → <strong>WILL</strong>'},
+    {type:'write',tag:'t-will',label:'WILL',qtype:'Escribir',
+     instr:'Complete with WILL + base verb:',
+     sent:'A: The phone is ringing! B: I _____ (answer) it.',sig:'spontaneous / at this moment',
+     hint:"I'll answer = spontaneous",
+     answers:["I'll answer","I will answer",'will answer'],
+     cor:'"<strong>I\'ll answer</strong> it."',
+     exp:'Spontaneous reaction to something happening right now → WILL.',
+     rule:'<strong>WILL</strong> = spontaneous decision made at the moment of speaking'},
+    {type:'mc',tag:'t-will',label:'WILL',qtype:'Oferta',
+     instr:'Choose the correct offer:',
+     sent:'You look tired. _____ I make you some tea?',sig:'offer / spontaneous',
+     opts:['Shall / Will','Am I going to','Do I','Was I going to'],ans:0,
+     cor:'<strong>Shall</strong> I make you some tea? / <strong>Will</strong> you have some tea?',
+     exp:'Offers in the moment → WILL or SHALL (formal). Both signal spontaneous action.',
+     rule:'<strong>Shall I / Will I</strong> = offers (spontaneous, polite)'},
+    {type:'mc',tag:'t-will',label:'WILL',qtype:'Predicción',
+     instr:'Choose the correct form:',
+     sent:'Probably, the meeting _____ last about two hours.',sig:'probably',
+     opts:['will','is going to','goes','was going to'],ans:0,
+     cor:'The meeting <strong>will</strong> probably last two hours.',
+     exp:'"Probably" + future prediction without strong evidence → WILL.',
+     rule:'<strong>WILL</strong> with: probably / perhaps / maybe / possibly'},
+    {type:'write',tag:'t-will',label:'WILL',qtype:'Escribir',
+     instr:'Write the negative WILL form (contraction):',
+     sent:'She _____ (not / be) at the office tomorrow. She\'s sick.',sig:'future negative',
+     hint:"won't be",
+     answers:["won't be","will not be"],
+     cor:'She <strong>won\'t be</strong> at the office tomorrow.',
+     exp:"won't = will not. Negative WILL contraction: won't + base verb.",
+     rule:"<strong>won't</strong> = will not + base verb"},
+    {type:'mc',tag:'t-will',label:'WILL',qtype:'Selección',
+     instr:'Which sentence shows the best use of WILL?',
+     sent:'Choose the most natural use:',sig:'natural use',
+     opts:["I'll be there in 10 minutes. (promise/fact)","I will travel next month. (decided 3 weeks ago)","I will have a baby. (pregnancy obvious)","I will go to the gym. (planned for a month)"],ans:0,
+     cor:'"<strong>I\'ll be there in 10 minutes</strong>" ✓',
+     exp:'A promise/commitment made now → WILL. The other options describe prior plans → GOING TO.',
+     rule:'<strong>WILL</strong> = now-decided / <strong>GOING TO</strong> = pre-decided'},
+  ]
+},
+{
+  id:'going', label:'GOING TO', stab:'going-sub',
+  color:'var(--going)', ptag:'t-going',
+  concept:{
+    word:'GOING TO', color:'var(--going)', borderColor:'rgba(234,88,12,.3)',
+    bg:'rgba(234,88,12,.05)',
+    rules:['Plans & intentions made BEFORE now','Predictions with present evidence (visible proof)'],
+    examples:["We're going to move. (decided last week)","Look! It's going to rain. (dark clouds visible)","She's going to have a baby. (pregnant)"]
+  },
+  qs:[
+    {type:'mc',tag:'t-going',label:'GOING TO',qtype:'Plan previo',
+     instr:'Choose the correct form:',
+     sent:'We _____ travel to Spain next summer. We already booked the hotel.',sig:'already booked / prior plan',
+     opts:["are going to travel","will travel","travel","traveled"],ans:0,
+     cor:'We <strong>are going to travel</strong> to Spain.',
+     exp:'Prior plan with evidence (hotel already booked) → GOING TO.',
+     rule:'<strong>GOING TO</strong> = plan decided BEFORE this moment'},
+    {type:'mc',tag:'t-going',label:'GOING TO',qtype:'Evidencia',
+     instr:'Choose the correct form:',
+     sent:'Look at those dark clouds! It _____ rain!',sig:'look! / evidence visible',
+     opts:["is going to","will","rains","would"],ans:0,
+     cor:'It <strong>is going to</strong> rain!',
+     exp:'"Look!" = visible evidence right now → GOING TO for predictions based on present evidence.',
+     rule:'<strong>GOING TO</strong> = prediction with visible present evidence'},
+    {type:'write',tag:'t-going',label:'GOING TO',qtype:'Escribir',
+     instr:'Complete with the correct GOING TO form:',
+     sent:'She _____ (have) a baby. You can see she\'s pregnant.',sig:'pregnant / evidence',
+     hint:'is going to have',
+     answers:['is going to have'],
+     cor:'She <strong>is going to have</strong> a baby.',
+     exp:'Visible evidence (she\'s pregnant) → GOING TO. is/am/are + going to + base verb.',
+     rule:'<strong>is/am/are + going to + base verb</strong>'},
+    {type:'mc',tag:'t-going',label:'GOING TO',qtype:'Intención',
+     instr:'Choose the correct form:',
+     sent:'"I\'ve decided. I _____ quit my job and start my own business."',sig:"I've decided",
+     opts:["am going to quit","will quit","quit","would quit"],ans:0,
+     cor:'I <strong>am going to quit</strong> my job.',
+     exp:'"I\'ve decided" = prior decision already made → GOING TO.',
+     rule:"I've decided / I've planned / I've chosen → <strong>GOING TO</strong>"},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find the INCORRECT sentence:',
+     sent:'Which sentence has an error?',sig:'error detection',
+     opts:["He is going to start a new job next week.","She's going to has a party tonight.","They are going to move to Canada.","Are you going to apply for the position?"],ans:1,
+     cor:'"She\'s going to <strong>have</strong> a party tonight."',
+     exp:'After GOING TO → always BASE verb. NEVER going to + has/goes/makes.',
+     rule:'<strong>going to + BASE verb</strong> (never going to + verb-s/ed)'},
+    {type:'write',tag:'t-going',label:'GOING TO',qtype:'Escribir',
+     instr:'Form the GOING TO question:',
+     sent:'_____ (you / study) abroad next year?',sig:'future plan / question',
+     hint:'Are + you + going to + study',
+     answers:['Are you going to study'],
+     cor:'<strong>Are you going to study</strong> abroad next year?',
+     exp:'Going to question: Am/Is/Are + subject + going to + base verb?',
+     rule:'<strong>Are/Is/Am + subject + going to + base verb?</strong>'},
+    {type:'mc',tag:'t-going',label:'GOING TO',qtype:'Plan previo',
+     instr:'Choose the correct form:',
+     sent:'I _____ call the doctor. I\'ve had this headache for 3 days.',sig:'prior decision / evidence',
+     opts:["am going to call","will call","called","would call"],ans:0,
+     cor:'I <strong>am going to call</strong> the doctor.',
+     exp:'Prior intention formed before this moment (3 days of headache = reason/evidence) → GOING TO.',
+     rule:'Prior intention + evidence/reason → <strong>GOING TO</strong>'},
+    {type:'write',tag:'t-going',label:'GOING TO',qtype:'Escribir',
+     instr:'Write the negative GOING TO form:',
+     sent:'They _____ (not / sell) their house after all.',sig:'prior plan / changed',
+     hint:"aren't going to sell",
+     answers:["aren't going to sell","are not going to sell"],
+     cor:'They <strong>aren\'t going to sell</strong> their house.',
+     exp:"Negative going to: am/is/are + not + going to + base verb. Contraction: aren't.",
+     rule:"<strong>aren't / isn't / am not + going to + base verb</strong>"},
+    {type:'mc',tag:'t-going',label:'GOING TO',qtype:'Evidencia',
+     instr:'Choose the correct prediction:',
+     sent:'He hasn\'t studied at all. He _____ fail the exam.',sig:'evidence / consequence',
+     opts:["is going to fail","will fail","fails","failed"],ans:0,
+     cor:'He <strong>is going to fail</strong> the exam.',
+     exp:'Present evidence (hasn\'t studied) pointing to a clear future result → GOING TO.',
+     rule:'Clear present evidence → predictable future → <strong>GOING TO</strong>'},
+    {type:'mc',tag:'t-going',label:'GOING TO',qtype:'Selección',
+     instr:'Which is the best use of GOING TO?',
+     sent:'Choose the most natural sentence:',sig:'natural use',
+     opts:["We're going to get married. We've been engaged for a year.","I'm going to help you! (said at this exact moment, spontaneously)","It's going to be a great day. (no visible evidence, just optimism)","She's going to call you. (promised just now, spontaneously)"],ans:0,
+     cor:'"We\'re going to get married." ✓ (prior plan, engaged for a year)',
+     exp:'Prior plan with evidence → GOING TO. The other options suggest WILL (spontaneous or opinion without clear evidence).',
+     rule:'<strong>GOING TO</strong> = prior plan / <strong>WILL</strong> = spontaneous / opinion'},
+  ]
+},
+{
+  id:'mix-wl', label:'MIX 🔀', stab:'wl-mix-sub',
+  color:'#0369a1', ptag:'t-mix',
+  concept:null,
+  qs:[
+    {type:'mc',tag:'t-mix',label:'WILL / GOING TO',qtype:'Mix',
+     instr:'Choose the correct future form:',
+     sent:'"The phone is ringing!" — "I _____ get it!"',sig:'spontaneous reaction',
+     opts:["I'll get","I'm going to get","I get","I got"],ans:0,
+     cor:'"<strong>I\'ll get</strong> it!"',
+     exp:'Spontaneous decision in response to something happening now → WILL.',
+     rule:'Spontaneous reaction → <strong>WILL</strong>'},
+    {type:'mc',tag:'t-mix',label:'WILL / GOING TO',qtype:'Mix',
+     instr:'Choose the correct future form:',
+     sent:'Look at her! She _____ fall off that bike!',sig:'look! / visible evidence',
+     opts:["is going to fall","will fall","falls","would fall"],ans:0,
+     cor:'She <strong>is going to fall</strong>!',
+     exp:'Visible evidence (you can see it) → GOING TO for predictions.',
+     rule:'Visible evidence → <strong>GOING TO</strong>'},
+    {type:'write',tag:'t-mix',label:'WILL / GOING TO',qtype:'Escribir',
+     instr:'Choose WILL or GOING TO and complete:',
+     sent:'I think robots _____ (replace) many jobs in the future.',sig:'I think / opinion',
+     hint:"will replace (I think = opinion, no evidence)",
+     answers:['will replace'],
+     cor:'I think robots <strong>will replace</strong> many jobs.',
+     exp:'"I think" + future opinion without specific evidence → WILL.',
+     rule:'I think / probably → <strong>WILL</strong>'},
+    {type:'mc',tag:'t-mix',label:'WILL / GOING TO',qtype:'Mix',
+     instr:'Choose WILL or GOING TO:',
+     sent:'We _____ renovate the kitchen. We already hired the workers.',sig:'already hired / prior plan',
+     opts:["are going to renovate","will renovate","renovate","renovated"],ans:0,
+     cor:'We <strong>are going to renovate</strong> the kitchen.',
+     exp:'Prior plan with evidence (workers already hired) → GOING TO.',
+     rule:'Prior plan with evidence → <strong>GOING TO</strong>'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Find the sentence that misuses WILL or GOING TO:',
+     sent:'Which sentence has an error?',sig:'error detection',
+     opts:["I'll call you when I arrive.","Look! That tree is going to fall!","I'm going to starts a business next year.","She'll probably be late."],ans:2,
+     cor:'"I\'m going to <strong>start</strong> a business next year."',
+     exp:'After GOING TO → BASE verb. Never "going to starts."',
+     rule:'<strong>going to + BASE verb</strong> (not verb-s/ed)'},
+    {type:'write',tag:'t-mix',label:'WILL / GOING TO',qtype:'Escribir',
+     instr:'Fill in with WILL or GOING TO:',
+     sent:'"A: There\'s no sugar." "B: I know. I _____ (buy) some on my way home."',sig:'I know / prior plan',
+     hint:"am going to buy (knew before)",
+     answers:["am going to buy","'m going to buy"],
+     cor:'"I <strong>\'m going to buy</strong> some on my way home."',
+     exp:'Person already knew → prior intention → GOING TO. (If they just found out → WILL.)',
+     rule:'Already knew / already planned → <strong>GOING TO</strong>'},
+    {type:'mc',tag:'t-mix',label:'WILL / GOING TO',qtype:'Mix',
+     instr:'Choose the most natural sentence:',
+     sent:'"_____ I carry that for you?" (spontaneous offer)',sig:'offer / spontaneous',
+     opts:["Shall I carry / Will I carry","Am I going to carry","Do I carry","Did I carry"],ans:0,
+     cor:'"<strong>Shall I carry</strong> that for you?" / "<strong>I\'ll carry</strong> that for you!"',
+     exp:'Spontaneous offers → WILL or SHALL. NOT going to (because it\'s not a pre-planned intention).',
+     rule:'Spontaneous offer → <strong>WILL / SHALL</strong>'},
+    {type:'mc',tag:'t-mix',label:'WILL / GOING TO',qtype:'Mix',
+     instr:'Which is the best response?',
+     sent:'"I\'ve decided to lose 10 kilos." — "Wow! How _____ you do it?"',sig:"I've decided",
+     opts:["are you going to","will you","do you","did you"],ans:0,
+     cor:'"How <strong>are you going to</strong> do it?"',
+     exp:'"I\'ve decided" signals a prior plan → GOING TO. The question asks about the method of a pre-planned decision.',
+     rule:"I've decided → <strong>GOING TO</strong>"},
+    {type:'write',tag:'t-mix',label:'WILL / GOING TO',qtype:'Escribir',
+     instr:'Complete with WILL or GOING TO:',
+     sent:'"Maybe I _____ (try) that new restaurant tonight. Who knows?"',sig:'maybe / uncertain',
+     hint:'will try (maybe = uncertain, not planned)',
+     answers:['will try',"'ll try"],
+     cor:'"Maybe I <strong>\'ll try</strong> that new restaurant."',
+     exp:'"Maybe" signals uncertainty, no firm plan → WILL. If it were planned: "I\'m going to try it."',
+     rule:'Uncertain / not planned → <strong>WILL</strong> / Firm plan → <strong>GOING TO</strong>'},
+    {type:'mc',tag:'t-err',label:'Error',qtype:'Error',
+     instr:'Choose the sentence that is CORRECT:',
+     sent:'Which one uses WILL or GOING TO correctly?',sig:'correct usage',
+     opts:["I will travel to Paris. I've been planning it for months.","I'm going to answer the phone! (right now, spontaneously)","Look at those clouds. It will rain. (clouds are visible)","I'm going to be a doctor someday. (childhood dream, general plan)"],ans:3,
+     cor:'"<strong>I\'m going to be a doctor someday.</strong>" ✓ (long-term intention/plan)',
+     exp:'"Going to be a doctor" = long-term intention → GOING TO. The others: prior plan→GOING TO; spontaneous→WILL; evidence→GOING TO.',
+     rule:'Long-term intention / dream → <strong>GOING TO</strong>'},
+  ]
+}
+];
+
+// ════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════
+let mainTab = 0; // 0=make/do, 1=will
+let curMD = 0, curWL = 0;
+let stateMD = {}, stateWL = {};
+let pts = 0;
+
+MAKE_DO.forEach((s,si)=>{ stateMD[si]={}; s.qs.forEach((_,qi)=>{ stateMD[si][qi]={answered:false,correct:false}; }); });
+WILL_DATA.forEach((s,si)=>{ stateWL[si]={}; s.qs.forEach((_,qi)=>{ stateWL[si][qi]={answered:false,correct:false}; }); });
+
+// ════════════════════════════════════════════════════
+//  MAIN TAB SWITCH
+// ════════════════════════════════════════════════════
+function switchMain(idx){
+  mainTab = idx;
+  document.getElementById('sec-make').classList.toggle('active', idx===0);
+  document.getElementById('sec-will').classList.toggle('active', idx===1);
+  document.getElementById('mt-0').className = `mtab${idx===0?' mk-active':''}`;
+  document.getElementById('mt-1').className = `mtab${idx===1?' wl-active':''}`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ════════════════════════════════════════════════════
+//  BUILD SUBTABS
+// ════════════════════════════════════════════════════
+function buildSubtabs(data, containerId, curRef, switchFn){
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  data.forEach((s,i)=>{
+    const btn = document.createElement('button');
+    btn.className = `stab${i===curRef?' '+s.stab:''}`;
+    btn.id = `st-${containerId}-${i}`;
+    btn.textContent = s.label;
+    btn.onclick = ()=>switchFn(i);
+    el.appendChild(btn);
+  });
+}
+
+function switchMD(i){
+  curMD = i;
+  buildSubtabs(MAKE_DO,'stabs-make',curMD,switchMD);
+  renderSection(MAKE_DO, stateMD, curMD, 'wrap-make', 'pf-make');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function switchWL(i){
+  curWL = i;
+  buildSubtabs(WILL_DATA,'stabs-will',curWL,switchWL);
+  renderSection(WILL_DATA, stateWL, curWL, 'wrap-will', 'pf-will');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ════════════════════════════════════════════════════
+//  RENDER SECTION
+// ════════════════════════════════════════════════════
+function renderSection(data, stateObj, idx, wrapId, pfId){
+  const sec = data[idx];
+  const s   = stateObj[idx];
+  const total    = sec.qs.length;
+  const answered = Object.values(s).filter(x=>x.answered).length;
+  const correct  = Object.values(s).filter(x=>x.correct).length;
+  const wrong    = Object.values(s).filter(x=>x.answered&&!x.correct).length;
+
+  // Progress
+  const pf = document.getElementById(pfId);
+  if(pf){ pf.style.width=(answered/total*100)+'%'; pf.style.background=sec.color; }
+
+  const wrap = document.getElementById(wrapId);
+  wrap.innerHTML = '';
+
+  // Concept card
+  if(sec.concept){
+    const c = sec.concept;
+    const box = document.createElement('div');
+    box.className = 'concept';
+    box.innerHTML = `
+      <div class="concept-title">📖 Reference — ${c.word}</div>
+      <div class="concept-grid">
+        <div class="cg-box" style="background:${c.bg};border-color:${c.borderColor}">
+          <div class="cg-word" style="color:${c.color}">${c.word}</div>
+          <ul class="cg-rule">${c.rules.map(r=>`<li>${r}</li>`).join('')}</ul>
+          <div class="cg-ex">${c.examples.join(' · ')}</div>
+        </div>
+        <div style="font-size:.78rem;color:var(--ink2);padding:6px 0;line-height:1.7">
+          ${c.rules.map(r=>`✦ ${r}`).join('<br>')}
+        </div>
+      </div>`;
+    wrap.appendChild(box);
+  } else {
+    // MIX reference
+    const box = document.createElement('div');
+    box.className = 'concept';
+    const isMD = data===MAKE_DO;
+    box.innerHTML = isMD
+      ? `<div class="concept-title">📖 Quick Reference</div>
+         <div class="concept-grid">
+           <div class="cg-box" style="background:var(--make-l);border-color:var(--make-b)">
+             <div class="cg-word" style="color:var(--make)">MAKE</div>
+             <div class="cg-rule">make a decision · make a mistake · make progress · make money · make a call · make breakfast</div>
+           </div>
+           <div class="cg-box" style="background:var(--do-l);border-color:var(--do-b)">
+             <div class="cg-word" style="color:var(--do)">DO</div>
+             <div class="cg-rule">do homework · do the dishes · do research · do a course · do exercise · do a favor</div>
+           </div>
+         </div>`
+      : `<div class="concept-title">📖 Quick Reference</div>
+         <div class="concept-grid">
+           <div class="cg-box" style="background:var(--will-l);border-color:var(--will-b)">
+             <div class="cg-word" style="color:var(--will)">WILL</div>
+             <div class="cg-rule">Spontaneous decisions · Predictions (I think) · Promises · Offers</div>
+           </div>
+           <div class="cg-box" style="background:var(--going-l);border-color:var(--going-b)">
+             <div class="cg-word" style="color:var(--going)">GOING TO</div>
+             <div class="cg-rule">Prior plans · Intentions · Predictions with visible evidence</div>
+           </div>
+         </div>`;
+    wrap.appendChild(box);
+  }
+
+  // Stats
+  const stats = document.createElement('div');
+  stats.className = 'stats';
+  stats.innerHTML = `
+    <div class="stat"><div class="sv" style="color:var(--green)">${correct}</div><div class="sl">✅ Correctas</div></div>
+    <div class="stat"><div class="sv" style="color:var(--red)">${wrong}</div><div class="sl">❌ Incorrectas</div></div>
+    <div class="stat"><div class="sv" style="color:var(--gold)">${total-answered}</div><div class="sl">🃏 Quedan</div></div>`;
+  wrap.appendChild(stats);
+
+  // Complete
+  const done = document.createElement('div');
+  done.className = 'done'+(answered===total?' show':'');
+  done.id = `done-${wrapId}`;
+  if(answered===total) fillDone(done,correct,total,sec,data,stateObj,idx,wrapId,pfId);
+  wrap.appendChild(done);
+
+  // Questions
+  sec.qs.forEach((q,qi)=>wrap.appendChild(buildCard(q,qi,idx,data,stateObj,sec,wrapId,pfId)));
+}
+
+// ════════════════════════════════════════════════════
+//  BUILD CARD
+// ════════════════════════════════════════════════════
+function buildCard(q,qi,si,data,stateObj,sec,wrapId,pfId){
+  const s = stateObj[si][qi];
+  const card = document.createElement('div');
+  card.className = `qc${s.answered?(s.correct?' ok':' fail'):''}`;
+  card.id = `qc-${wrapId}-${si}-${qi}`;
+
+  const sentHTML = q.sent.includes('_____')
+    ? q.sent.replace('_____','<span class="gap">_____</span>')
+    : q.sent;
+
+  const top = document.createElement('div');
+  top.className = 'qc-top';
+  top.innerHTML = `
+    <div class="qmeta">
+      <div class="qnum" id="qnum-${wrapId}-${si}-${qi}">${s.answered?(s.correct?'✓':'✗'):(qi+1)}</div>
+      <span class="qtag ${q.tag}">${q.label}</span>
+      <span class="qlbl">${q.qtype}</span>
+    </div>
+    <div class="qinstr">${q.instr}</div>
+    <div class="qsent">${sentHTML}${q.sig?`<br><span class="sig">🔑 ${q.sig}</span>`:''}</div>
+    ${q.hint?`<div style="margin-top:6px;font-size:.68rem;color:var(--muted);font-family:'DM Mono',monospace">💡 ${q.hint}</div>`:''}`;
+  card.appendChild(top);
+
+  if(q.type==='mc'){
+    const wrap = document.createElement('div');
+    wrap.className = 'opts';
+    const letters=['A','B','C','D'];
+    q.opts.forEach((opt,oi)=>{
+      const div = document.createElement('div');
+      div.id = `opt-${wrapId}-${si}-${qi}-${oi}`;
+      let cls='opt';
+      if(s.answered){ cls+=' dis'; if(oi===q.ans) cls+=' ok'; else if(oi===s.chosen&&oi!==q.ans) cls+=' bad'; }
+      div.className=cls;
+      div.innerHTML=`<span class="ol">${letters[oi]}</span>${opt}`;
+      if(!s.answered) div.onclick=()=>pickMC(si,qi,oi,data,stateObj,wrapId,pfId);
+      wrap.appendChild(div);
+    });
+    card.appendChild(wrap);
+  } else {
+    const wrap = document.createElement('div');
+    wrap.className='write-area';
+    wrap.innerHTML=`
+      <div class="wr">
+        <input class="wi" id="wi-${wrapId}-${si}-${qi}" placeholder="Type here..."
+          ${s.answered?'disabled':''}
+          onkeydown="if(event.key==='Enter')checkWrite('${wrapId}',${si},${qi},this.closest('.wr').parentElement)">
+        <button class="chk" id="wb-${wrapId}-${si}-${qi}"
+          onclick="checkWrite('${wrapId}',${si},${qi})"
+          ${s.answered?'disabled':''}>Check ✓</button>
+      </div>`;
+    card.appendChild(wrap);
+    if(s.answered&&s.saved){
+      setTimeout(()=>{
+        const wi=document.getElementById(`wi-${wrapId}-${si}-${qi}`);
+        if(wi){wi.value=s.saved;wi.className='wi '+(s.correct?'ok':'fail');}
+      },0);
+    }
+  }
+
+  const fb = document.createElement('div');
+  fb.id = `fb-${wrapId}-${si}-${qi}`;
+  fb.className = `fb${s.answered?' show '+(s.correct?'ok':'fail'):''}`;
+  if(s.answered){
+    fb.innerHTML=`${s.correct?'✅ <strong>Correct!</strong>':'❌ <strong>Incorrect.</strong>'} ${q.exp}
+      <div class="cor">✓ ${q.cor}</div>
+      <div class="rn"><strong>📐 Rule:</strong> ${q.rule}</div>`;
+  }
+  card.appendChild(fb);
+  return card;
+}
+
+// ════════════════════════════════════════════════════
+//  PICK / CHECK
+// ════════════════════════════════════════════════════
+function getContext(wrapId){
+  if(wrapId==='wrap-make') return {data:MAKE_DO,stateObj:stateMD,cur:curMD,pfId:'pf-make'};
+  return {data:WILL_DATA,stateObj:stateWL,cur:curWL,pfId:'pf-will'};
+}
+
+function pickMC(si,qi,oi,data,stateObj,wrapId,pfId){
+  if(stateObj[si][qi].answered) return;
+  const q=data[si].qs[qi];
+  const correct=oi===q.ans;
+  stateObj[si][qi]={answered:true,correct,chosen:oi};
+  q.opts.forEach((_,i)=>{
+    const el=document.getElementById(`opt-${wrapId}-${si}-${qi}-${i}`);
+    if(!el) return; el.classList.add('dis'); el.onclick=null;
+    if(i===q.ans) el.classList.add('ok');
+    else if(i===oi&&!correct) el.classList.add('bad');
+  });
+  applyResult(si,qi,correct,q,data,stateObj,wrapId,pfId);
+}
+
+function checkWrite(wrapId,si,qi){
+  const {data,stateObj,pfId}=getContext(wrapId);
+  if(stateObj[si][qi].answered) return;
+  const q=data[si].qs[qi];
+  const inp=document.getElementById(`wi-${wrapId}-${si}-${qi}`);
+  const btn=document.getElementById(`wb-${wrapId}-${si}-${qi}`);
+  if(!inp) return;
+  const val=inp.value.trim().toLowerCase().replace(/\s+/g,' ');
+  const correct=q.answers.some(a=>a.toLowerCase().replace(/\s+/g,' ')===val||val.includes(a.toLowerCase().replace(/\s+/g,' ')));
+  stateObj[si][qi]={answered:true,correct,saved:inp.value};
+  inp.disabled=true; if(btn) btn.disabled=true;
+  inp.className='wi '+(correct?'ok':'fail');
+  applyResult(si,qi,correct,q,data,stateObj,wrapId,pfId);
+}
+
+function applyResult(si,qi,correct,q,data,stateObj,wrapId,pfId){
+  const card=document.getElementById(`qc-${wrapId}-${si}-${qi}`);
+  const num =document.getElementById(`qnum-${wrapId}-${si}-${qi}`);
+  const fb  =document.getElementById(`fb-${wrapId}-${si}-${qi}`);
+  if(card) card.classList.add(correct?'ok':'fail');
+  if(num)  num.textContent=correct?'✓':'✗';
+  if(fb){
+    fb.innerHTML=`${correct?'✅ <strong>Correct!</strong>':'❌ <strong>Incorrect.</strong>'} ${q.exp}
+      <div class="cor">✓ ${q.cor}</div>
+      <div class="rn"><strong>📐 Rule:</strong> ${q.rule}</div>`;
+    fb.className=`fb show ${correct?'ok':'fail'}`;
+  }
+  if(correct){pts+=10;document.getElementById('g-pts').textContent=pts;}
+
+  const s=stateObj[si];
+  const total=data[si].qs.length;
+  const answered=Object.values(s).filter(x=>x.answered).length;
+  const corr=Object.values(s).filter(x=>x.correct).length;
+  const wrong=Object.values(s).filter(x=>x.answered&&!x.correct).length;
+
+  const pf=document.getElementById(pfId);
+  if(pf) pf.style.width=(answered/total*100)+'%';
+  const sv=document.querySelectorAll(`#wrap-${wrapId.split('-')[1]} .sv`);
+  if(sv[0]) sv[0].textContent=corr;
+  if(sv[1]) sv[1].textContent=wrong;
+  if(sv[2]) sv[2].textContent=total-answered;
+
+  if(answered===total) setTimeout(()=>{
+    const done=document.getElementById(`done-${wrapId}`);
+    if(done){fillDone(done,corr,total,data[si],data,stateObj,si,wrapId,pfId);done.classList.add('show');done.scrollIntoView({behavior:'smooth',block:'center'});}
+  },500);
+}
+
+function fillDone(el,correct,total,sec,data,stateObj,si,wrapId,pfId){
+  const pct=Math.round(correct/total*100);
+  const nextIdx=(si+1)%data.length;
+  const isLast=si===data.length-1;
+  el.innerHTML=`
+    <div class="done-emoji">${pct>=90?'🏆':pct>=70?'🎉':pct>=50?'📖':'💪'}</div>
+    <div class="done-score" style="color:${sec.color}">${correct}/${total}</div>
+    <div class="done-lbl">correctas en ${sec.label}</div>
+    <div class="done-grade">${pct>=90?'🔥 Excellent! You\'ve mastered this!':pct>=70?'👍 Great work! Keep it up.':pct>=50?'📖 Good effort — review the rules.':'💪 Keep practicing!'}</div>
+    <div class="done-chips">
+      <div class="dc dc-ok">✅ ${correct} correctas</div>
+      <div class="dc dc-fail">❌ ${total-correct} incorrectas</div>
+      <div class="dc dc-pts">⭐ +${correct*10} pts</div>
+    </div>
+    <div class="done-btns">
+      <button class="db db-p" onclick="restart('${wrapId}',${si})">↺ Repetir</button>
+      <button class="db db-s" onclick="${wrapId==='wrap-make'?`switchMD(${nextIdx})`:`switchWL(${nextIdx})`}">→ ${isLast?'Al inicio':data[nextIdx].label}</button>
+    </div>`;
+}
+
+function restart(wrapId,si){
+  const {data,stateObj,pfId}=getContext(wrapId);
+  Object.values(stateObj[si]).forEach(s=>{if(s.correct) pts-=10;});
+  pts=Math.max(0,pts);
+  document.getElementById('g-pts').textContent=pts;
+  stateObj[si]={};
+  data[si].qs.forEach((_,qi)=>{stateObj[si][qi]={answered:false,correct:false};});
+  renderSection(data,stateObj,si,wrapId,pfId);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════
+buildSubtabs(MAKE_DO,'stabs-make',0,switchMD);
+buildSubtabs(WILL_DATA,'stabs-will',0,switchWL);
+renderSection(MAKE_DO,stateMD,0,'wrap-make','pf-make');
+renderSection(WILL_DATA,stateWL,0,'wrap-will','pf-will');
+</script>
+
+</body>
+</html>
